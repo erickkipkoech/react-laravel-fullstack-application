@@ -1,6 +1,12 @@
-import {Outlet} from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
+import {useStateContext} from "../contexts/ContextProvider.jsx";
 
 export default function GuestLayout(){
+
+  const {token}=useStateContext();
+  if(token){
+    return <Navigate to="/"/>
+  }
 return (
     <div className="w-full flex items-center top-10 relative justify-center">
   <div className="bg-blue-400 text-white justify-center rounded-2xl shadow-2xl flex flex-col w-[500px] h-full  xs:w-1/3 items-center max-w-full transition duration-1000 ease-in">
