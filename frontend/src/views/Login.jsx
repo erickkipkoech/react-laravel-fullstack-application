@@ -1,5 +1,5 @@
 import {Facebook, GitHub, Google} from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 export default function Login() {
@@ -35,14 +35,14 @@ export default function Login() {
                            className='rounded-2xl text-black px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0'
                            placeholder='Password'/>
                     <button
-                        className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'>
+                        className='rounded-2xl m-2 text-white bg-blue-500 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'>
                         Sign In
                     </button>
                 </form>
-            <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
-            <p className='text-white justify-center mt-4 text-sm'>Don't have an account?</p>
-            <p className='text-blue justify-center mb-4 text-sm font-medium cursor-pointer'
-               onClick={setIsSignUp()}>Create a New Account?</p>
+            <div className="border-[1px] justify-center flex w-full border-white border-solid"></div>
+            <p className='text-white justify-center flex mt-4 text-sm'>Don't have an account?</p>
+            <p className='text-blue justify-center flex mb-4 text-sm font-medium cursor-pointer'
+            ><Link to="/signup">Create a New Account?</Link></p>
         </div>
     )
 }
