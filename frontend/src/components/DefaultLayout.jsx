@@ -27,18 +27,18 @@ export default function DefaultLayout() {
     return (
         <div className="w-full h-screen flex flex-col absolute">
             <div
-                className="bg-blue-400 text-white shadow-2xl items-center flex flex-row h-1/6 w-full xs:w-1/3 max-w-full transition duration-1000 ease-in">
-                <h2 className='ps-5 text-3xl w-1/6 font-bold text-white'>X Company</h2>
-                <div className="gap-10 items-end w-5/6 pe-5 flex justify-end">{user.name} <a
+                className="bg-white-400 shadow-md items-center border border-slate-300 flex flex-row h-[70px] w-full xs:w-1/3 max-w-full transition duration-1000 ease-in">
+                <h2 className='ps-8 text-3xl w-1/6 font-bold text-black'>X Company</h2>
+                <div className="gap-10 text-slate-500 items-end w-5/6 pe-5 flex justify-end">{user.name} <a
                     onClick={handleLogout}>Logout</a></div>
             </div>
             <div
-                className="bg-blue-300 text-white shadow-2xl flex flex-row w-full h-5/6 top-[100px] xs:w-1/3 transition duration-1000 ease-in">
-                <aside className="flex flex-col bg-blue-300 h-full p-5 space-y-3 w-1/6 relative ">
+                className="bg-white-300 text-black shadow-2xl flex flex-row w-full h-5/6 top-[100px] xs:w-1/3 transition duration-1000 ease-in">
+                <aside className="flex flex-col font-medium text-xl border border-slate-300 text-slate-600 bg-white-300 h-full p-5 space-y-3 w-1/6 relative ">
                     <Link to="/dashboard">Dashboard</Link>
                     <Link to="/users">Users</Link>
                 </aside>
-                <div className="bg-blue-200 h-full w-5/6 left-0 p-5 space-y-3 relative">
+                <div className="bg-white-200 h-full w-5/6 left-0 space-y-3 relative">
                     <Outlet/>
                 </div>
             </div>
