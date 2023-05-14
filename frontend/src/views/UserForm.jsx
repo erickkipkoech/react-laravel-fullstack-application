@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function UserForm() {
+export default function UserForm(props) {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState(null);
 
   const [user, setUser] = useState({
@@ -15,27 +15,36 @@ export default function UserForm() {
     password: "",
     password_confirmation: "",
   });
+  
   const onSubmit = (ev) => {
     ev.preventDefault();
-    if(user.id){
-        axiosClient.put(`/users/${user.id}`,user).then(()=>{
-            navigate('/users');
-        }).catch(err=>{
-            const response=err.response;
-            if(response && response.status===422){
-                setErrors(response.data.errors)
-            }
-        });
-    }else{
-        axiosClient.post('/users',user).then(()=>{
-            navigate('/users');
+    if (user.id) {
+      axiosClient
+        .put(`/users/${user.id}`, user)
 
-        }).catch(err=>{
-            const response=err.response;
-            if(response && response.status===422){
-                setErrors(response.data.errors);
-            }
+        .then(() => {
+          navigate("/users");
+          
         })
+        .catch((err) => {
+          const response = err.response;
+          if (response && response.status === 422) {
+            setErrors(response.data.errors);
+          }
+        });
+    } else {
+       
+      axiosClient
+        .post("/users", user)
+        .then(() => {
+          navigate("/users");
+        })
+        .catch((err) => {
+          const response = err.response;
+          if (response && response.status === 422) {
+            setErrors(response.data.errors);
+          }
+        });
     }
   };
   if (id) {
@@ -63,7 +72,7 @@ export default function UserForm() {
         {!loading && (
           <form onSubmit={onSubmit}>
             <input
-              onChange={(ev) => setUser({ user, name: ev.target.value })}
+              onChange={ev => setUser({ ...user, name: ev.target.value })}
               value={user.name}
               type="text"
               placeholder="Name"
@@ -71,26 +80,28 @@ export default function UserForm() {
             {errors ? <p className="text-red-500">{errors.name}</p> : null}
 
             <input
-              onChange={(ev) => setUser({ user, email: ev.target.value })}
+              onChange={ev => setUser({ ...user, email: ev.target.value })}
               value={user.email}
               type="email"
               placeholder="Email"
             />
-            {errors ? <p className="text-red-500">{errors.email}</p>:null}
+            {errors ? <p className="text-red-500">{errors.email}</p> : null}
             <input
-              onChange={(ev) => setUser({ user, password: ev.target.value })}
+              onChange={ev => setUser({ ...user, password: ev.target.value })}
               type="password"
               placeholder="Password"
             />
-            {errors ? <p className="text-red-500">{errors.password}</p>:null}
+            {errors ? <p className="text-red-500">{errors.password}</p> : null}
             <input
-              onChange={(ev) =>
-                setUser({ user, password_confirmation: ev.target.value })
+              onChange={ev =>
+                setUser({ ...user, password_confirmation: ev.target.value })
               }
               type="password"
               placeholder="Confirm Password"
             />
-            {errors ? <p className="text-red-500">{errors.password_confirmation}</p>:null}
+            {errors ? (
+              <p className="text-red-500">{errors.password_confirmation}</p>
+            ) : null}
             <button className="btn">Save</button>
           </form>
         )}

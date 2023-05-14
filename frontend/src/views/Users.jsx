@@ -77,8 +77,7 @@ export default function Users() {
                 <td>{user.email}</td>
                 <td>{user.created_at}</td>
                 <td>
-                  <button className="btn-edit ">
-                    {" "}
+                  <button className="btn-edit">
                     <Link className="" to={"/users/" + user.id}>
                       Edit
                     </Link>
