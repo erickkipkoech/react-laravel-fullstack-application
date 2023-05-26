@@ -5,25 +5,36 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
 
 export default function Users() {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const {setNotification}=useStateContext();
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [currentPage]);
 
   const getUsers = () => {
     setLoading(true);
+    debugger
     axiosClient
       .get("/users")
       .then(({ data }) => {
         setUsers(data.data);
+        setTotalPages(response.data.last_page);
         setLoading(false);
+       
       })
       .catch(() => {
         setLoading(false);
       });
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const onDelete=(user)=>
@@ -67,7 +78,8 @@ export default function Users() {
               <th>Actions</th>
             </tr>
           </thead>
-         {loading && <tbody>
+          
+         {loading &&  <tbody>
             <tr>
               <td colSpan="5" className="text-center">Loading...</td>
             </tr>
@@ -90,8 +102,17 @@ export default function Users() {
                 </td>
               </tr>
             ))}
-          </tbody>}
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+        <button key={page} onClick={() => handlePageChange(page)}>
+          {page}
+        </button>
+      ))}
+          </tbody>
+
+          }
+        
         </table>
+       
       </div>
     </div>
   );
